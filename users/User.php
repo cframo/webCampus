@@ -11,13 +11,44 @@ require_once '../Config/cuenta.php';
 
 abstract class User extends cuenta {
 
+    protected $campoTabla ;
+
+    public function __construct($idCuenta, $contraseña){
+
+        parent::__construct($idCuenta, $contraseña);
+        $this->view_student();
+        $this->campoTabla = "view_".$this->idCuenta;
+
+    }
+
+    private function view_student(){
+
+        $sql = "CREATE OR REPLACE VIEW view_".$this->idCuenta." AS SELECT * FROM alumnos WHERE ".ID_AC3." = :id";
+
+        $resultado = $this->conexionBase->prepare($sql);
+        $resultado->execute(array(":id"=>$this->idCuenta));
+
+
+    }
+
+    public function drop_view(){
+
+        $sql = "DROP VIEW IF EXISTS view_".$this->idCuenta;
+
+        $resultado = $this->conexionBase->prepare($sql);
+        $resultado->execute();
+        echo $sql;
+
+    }
+
+
     /*
      * Inicio de los gets, tabla alumnos
      */
     
     public function getNacionalidad() {
         
-        $sql = "SELECT ".NAOTY." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".NAOTY." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -28,7 +59,7 @@ abstract class User extends cuenta {
 
     public function getCedula() {
         
-        $sql = "SELECT ".ID_STU." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".ID_STU." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -39,7 +70,7 @@ abstract class User extends cuenta {
 
     public function getCodigoCa() {
         
-        $sql = "SELECT ".CAREER." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".CAREER." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -50,7 +81,7 @@ abstract class User extends cuenta {
 
     public function getCodigoTri() {
         
-        $sql = "SELECT ".STU_TRI." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".STU_TRI." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -61,7 +92,7 @@ abstract class User extends cuenta {
 
     public function getNombre() {
         
-        $sql = "SELECT ".NAME_STU." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".NAME_STU." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -71,7 +102,7 @@ abstract class User extends cuenta {
 
     public function getNombre2() {
         
-        $sql = "SELECT ".NAME_STU2." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".NAME_STU2." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -82,7 +113,7 @@ abstract class User extends cuenta {
 
     public function getApellido() {
         
-        $sql = "SELECT ".LNAME_STU." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".LNAME_STU." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -93,7 +124,7 @@ abstract class User extends cuenta {
 
     public function getApellido2() {
         
-        $sql = "SELECT ".LNAME_STU2." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".LNAME_STU2." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -103,7 +134,7 @@ abstract class User extends cuenta {
 
     public function getCorreo() {
         
-        $sql = "SELECT ".EMAIL." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".EMAIL." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -114,7 +145,7 @@ abstract class User extends cuenta {
 
     public function getMovil() {
         
-        $sql = "SELECT ".CELL." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".CELL." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -125,7 +156,7 @@ abstract class User extends cuenta {
 
     public function getCasa() {
         
-        $sql = "SELECT ".PHONE." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".PHONE." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -136,7 +167,7 @@ abstract class User extends cuenta {
 
     public function getDireccion() {
         
-        $sql = "SELECT ".ADDRESS." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".ADDRESS." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -147,7 +178,7 @@ abstract class User extends cuenta {
     
     public function getTurno(){
         
-        $sql = "SELECT ".TURN_STU." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".TURN_STU." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -158,7 +189,7 @@ abstract class User extends cuenta {
     
     public function getLapso() {
         
-        $sql = "SELECT ".LAP_ACT." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".LAP_ACT." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -169,7 +200,7 @@ abstract class User extends cuenta {
     
     public function getLapsoOld() {
         
-        $sql = "SELECT ".LAP_OLD." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".LAP_OLD." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -180,7 +211,7 @@ abstract class User extends cuenta {
     
     public function getTrimester() {
         
-        $sql = "SELECT ".STU_TRI." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".STU_TRI." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -191,7 +222,7 @@ abstract class User extends cuenta {
     
     public function getTriAprob(){
         
-        $sql = "SELECT ".TRI_PASS." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".TRI_PASS." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -202,7 +233,7 @@ abstract class User extends cuenta {
     
     public function getUca() {
         
-        $sql = "SELECT ".UNIT_A." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".UNIT_A." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -213,7 +244,7 @@ abstract class User extends cuenta {
     
     public function getIndiceAct() {
         
-        $sql = "SELECT ".NOTES_LST." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".NOTES_LST." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -224,7 +255,7 @@ abstract class User extends cuenta {
     
     public function getIndiceOld() {
         
-        $sql = "SELECT ".NOTES_ALL." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".NOTES_ALL." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -235,7 +266,7 @@ abstract class User extends cuenta {
     
     public function getUcc() {
         
-        $sql = "SELECT ".UNIT_V." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".UNIT_V." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -246,7 +277,7 @@ abstract class User extends cuenta {
     
     public function getStatus() {
         
-        $sql = "SELECT ".STATUS_STU." FROM ".TABLE_STUDENT." WHERE ".ID_ACCOUNT.
+        $sql = "SELECT ".STATUS_STU." FROM view_".$this->idCuenta." WHERE ".ID_ACCOUNT.
                 "= ".$this->idCuenta;
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -261,7 +292,7 @@ abstract class User extends cuenta {
 
     public function setNacionalidad($nacionalidad) {
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".NAOTY." = '".$nacionalidad.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".NAOTY." = '".$nacionalidad.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -270,7 +301,7 @@ abstract class User extends cuenta {
 
     public function setCedula($cedula) {
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".ID_STU." = '".$cedula.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".ID_STU." = '".$cedula.
                 "' WHERE ".ID_AC3." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -278,7 +309,7 @@ abstract class User extends cuenta {
 
     public function setCodigoCa($codigoCa) {
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".CAREER." = '".$codigoCa.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".CAREER." = '".$codigoCa.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -287,7 +318,7 @@ abstract class User extends cuenta {
 
     public function setCodigoTri($codigoTri) {
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".STU_TRI." = '".$codigoTri.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".STU_TRI." = '".$codigoTri.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -296,7 +327,7 @@ abstract class User extends cuenta {
 
     public function setNombre($nombre) {
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".NAME_STU." = '".$nombre.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".NAME_STU." = '".$nombre.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -305,7 +336,7 @@ abstract class User extends cuenta {
 
     public function setNombre2($nombre2) {
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".NAME_STU2." = '".$nombre2.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".NAME_STU2." = '".$nombre2.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -314,7 +345,7 @@ abstract class User extends cuenta {
 
     public function setApellido($apellido) {
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".LNAME_STU." = '".$apellido.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".LNAME_STU." = '".$apellido.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -323,7 +354,7 @@ abstract class User extends cuenta {
 
     public function setApellido2($apellido2) {
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".LNAME_STU2." = '".$apellido2.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".LNAME_STU2." = '".$apellido2.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -332,7 +363,7 @@ abstract class User extends cuenta {
 
     public function setCorreo($correo) {
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".EMAIL." = '".$correo.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".EMAIL." = '".$correo.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -341,7 +372,7 @@ abstract class User extends cuenta {
 
     public function setMovil($movil) {
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".CELL." = '".$movil.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".CELL." = '".$movil.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -350,7 +381,7 @@ abstract class User extends cuenta {
 
     public function setCasa($casa) {
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".PHONE." = '".$casa.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".PHONE." = '".$casa.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -359,7 +390,7 @@ abstract class User extends cuenta {
 
     public function setDireccion($direccion) {
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".ADDRESS." = '".$direccion.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".ADDRESS." = '".$direccion.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -368,7 +399,7 @@ abstract class User extends cuenta {
     
     public function setTurno($turno){
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".TURN_STU." = '".$turno.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".TURN_STU." = '".$turno.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -377,7 +408,7 @@ abstract class User extends cuenta {
     
     public function setLapsoAct($LapsoAct) {
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".LAP_ACT." = '".$LapsoAct.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".LAP_ACT." = '".$LapsoAct.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -386,7 +417,7 @@ abstract class User extends cuenta {
     
     public function setLapsoOld($lapsoOld) {
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".LAP_OLD." = '".$lapsoOld.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".LAP_OLD." = '".$lapsoOld.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -395,7 +426,7 @@ abstract class User extends cuenta {
     
     public function setUca($uca) {
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".UNIT_A." = '".$uca.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".UNIT_A." = '".$uca.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -404,7 +435,7 @@ abstract class User extends cuenta {
     
     public function setUcc($ucc){
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".UNIT_V." = '".$ucc.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".UNIT_V." = '".$ucc.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -413,7 +444,7 @@ abstract class User extends cuenta {
     
     public function setNotesLst($notesLst){
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".NOTES_LST." = '".$notesLst.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".NOTES_LST." = '".$notesLst.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -422,7 +453,7 @@ abstract class User extends cuenta {
     
     public function setNotesAll($notesAll) {
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".NOTES_ALL." = '".$notesAll.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".NOTES_ALL." = '".$notesAll.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -431,7 +462,7 @@ abstract class User extends cuenta {
     
     public function setTriAprob($triAprob) {
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".TRI_PASS." = '".$triAprob.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".TRI_PASS." = '".$triAprob.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         $resultado = $this->conexionBase->prepare($sql);
         $resultado->execute();
@@ -440,7 +471,7 @@ abstract class User extends cuenta {
     
     public function setStatus($status){
         
-        $sql = "UPDATE ".TABLE_STUDENT." SET ".STATUS_STU." = '".$status.
+        $sql = "UPDATE view_".$this->idCuenta." SET ".STATUS_STU." = '".$status.
                 "' WHERE ".ID_STU." = '".$this->idCuenta."'";
         
         $resultado = $this->conexionBase->prepare($sql);

@@ -1,4 +1,4 @@
-
+$us
 
 <!--
  Código fuente desarrollado por Franklin Moreno e Hiram González
@@ -63,7 +63,7 @@
                    <a href="../Enrollment/enrollment.php">
                            <i class="fa fa-pencil-square-o" aria-hidden="true"><span> e-Inscripciones</span></i>
                    </a>
-                   <a href="../Logout/logout.php">
+                   <a href="../Logout/logout.php?id=<?php echo $user->getCedula();?>">
                            <i class="fa fa-power-off" aria-hidden="true"><span> Cerrar Sesión</span></i>
                    </a>
             </div>

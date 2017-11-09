@@ -3,8 +3,7 @@
 require_once 'User.php';
 
 class student extends user {
-    
-    
+
     /**
      * Constructor de la clase student 
      *  -1er parametro = cedula 

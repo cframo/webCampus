@@ -32,12 +32,12 @@ abstract class admin_option extends cuenta {
 
     }
 
-
     /**
      * EN PROCESO
      */
     public function usuario_search(){
 
     }
+
 
 }

@@ -11,7 +11,9 @@ require_once 'professor.php';
 class profesor extends professor {
 
     public function __construct($idCuenta, $contraseña){
+
         parent::__construct($idCuenta, $contraseña);
+        
     }
 
 

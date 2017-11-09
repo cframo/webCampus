@@ -138,7 +138,7 @@ abstract class cuenta extends conexion {
         return password_verify($this->contraseña, $contraOriginal["contrasenha"]);
         
     } //Funcional
-    
+
     public function sumar($numero, $tabla, $codigo, $referencia){
         
         $sql = "UPDATE $tabla SET $numero = $numero+1 WHERE $referencia = '$codigo'";

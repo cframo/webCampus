@@ -8,9 +8,16 @@
 -->
 
 <?php
-    
+
+    require_once '../users/student.php';
+    $id = $_GET["id"];
+
+
+    $user = new student($id);
+    $user->drop_view();
+
     session_start();
-    
+
     session_destroy();
     setcookie("login", 1, time()-1, "/");
     

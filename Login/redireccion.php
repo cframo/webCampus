@@ -20,6 +20,7 @@ require_once '../users/admin.php';
         
         $student->__destruct();
         $_SESSION["user"] = serialize($student);
+        $_SESSION["user2"] = serialize($student);
         
       header ("location: ../Index/index.php" );
       

@@ -5,29 +5,28 @@
  * Contacto cfranklinmoreno@gmail.com
  */
 
-//data of admin's table
-define("TABLE_ADMIN", "admin");
+//data of admin's VIEW
+define("VIEW_ADMIN", "admin");
     define("ID_ADMIN", "id_cuenta");
     define("PASSWRD_A", "contrasenha");
     define("PASSWRD_A2", "sda_contra");
     
-//data of account's table    
-define("TABLE_ACCOUNT", "cuenta");
+//data of account's VIEW
 define("VIEW_ACCOUNT", "cuenta");
     define("ID_ACCOUNT", "id_cuenta");
     define("PASSWRD_AC", "contrasenha");
     define("STATUS", "estado");
 
-//data of career's table
-define("TABLE_CAREER", "carreras");
+//data of career's VIEW
+define("VIEW_CAREER", "carreras");
     define("COD_CA", "cod_ca");
     define("UNIT_ALL", "uc_tol");
     define("NRO_TRI_CA", "nro_tri_ca");
     define("NRO_STU", "nro_est");
     define("NAME_CA", "nombre");
     
-//data of course´s table    
-define("TABLE_COURSE", "materias");
+//data of course´s VIEW
+define("VIEW_COURSE", "materias");
     define("COD_MAT", "cod_mat");
     define("NAME_CRS", "nombre");
     define("PRE_COD", "pre_cod");
@@ -36,23 +35,23 @@ define("TABLE_COURSE", "materias");
     define("FOREN_COD", "cod_for");
     define("COST", "uc_cost");
     
-//data of profesor's table
-define("TABLE_PROFESSOR", "profesores");
+//data of profesor's VIEW
+define("VIEW_PROFESSOR", "profesores");
     define("COD_PRO", "cod_pro");
     define("ID_PRO", "cedula");
     define("NAME_PRO", "nombre");
     define("LNAME_PRO", "apellido");
 
-//data of trimester's table
-define("TABLE_TRIMESTER", "trimestres");
+//data of trimester's VIEW
+define("VIEW_TRIMESTER", "trimestres");
     define("COD_TRI", "cod_tri");
     define("COD_CA2", "cod_ca");
     define("NRO_TRI", "n_tri");
     define("UNIT_MIN", "uc_nec");
     define("NRO_STU_TRI", "n_est_tri");
 
-//data of section's table
-define("TABLE_SECTION", "seccion");
+//data of section's VIEW
+define("VIEW_SECTION", "seccion");
     define("COD_SEC", "cod_sec");
     define("COD_MAT2", "cod_mat");
     define("COD_PRO2", "cod_pro");
@@ -62,13 +61,13 @@ define("TABLE_SECTION", "seccion");
     define("DAY2", "dia_dos");
     define("TURN", "turno");
     
-//data of registry's table
-define("TABLE_REGISTRY_", "registro_");
+//data of registry's VIEW
+define("VIEW_REGISTRY_", "registro_");
     define("COD_SEC2", "cod_sec");
     define("ID_ACC2", "id_cuenta");
     
-//data of student's table
-define("TABLE_STUDENT", "alumnos");
+//data of student's VIEW
+define("VIEW_STUDENT", "alumnos");
     define("ID_STU", "cedula");
     define("NAOTY", "nacionalidad");
     define("CAREER", "carrera");
@@ -91,12 +90,3 @@ define("TABLE_STUDENT", "alumnos");
     define("UNIT_V", "ucc");
     define("NOTES_LST", "indice_act");
     define("NOTES_ALL", "indice_tol");
-
-//data of view's table.
-define("VIEW_CAREER", "view_carreras");
-define("VIEW_COURSE", "view_materias");
-define("VIEW_PROFESSOR", "view_profesores");
-define("VIEW_TRIMESTER", "view_trimestres");
-define("VIEW_SECTION", "view_seccion");
-define("VIEW_REGISTRY_", "view_registro_");
-define("VIEW_STUDENT", "view_alumnos");
